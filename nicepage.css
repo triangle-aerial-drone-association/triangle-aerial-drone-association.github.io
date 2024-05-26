@@ -42560,7 +42560,7 @@ a.u-link.u-text-hover-grey-90:hover {
 .u-header .u-image-1 {
   width: 63px;
   height: 63px;
-  margin: 8px auto 0 0;
+  margin: 12px auto 0 0;
 }
 
 .u-header .u-logo-image-1 {
@@ -42569,9 +42569,7 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-header .u-menu-1 {
-  left: 613px;
-  top: 22px;
-  margin: -63px 0 35px auto;
+  margin: -53px auto 22px 63px;
 }
 
 .u-header .u-nav-1 {
@@ -42589,7 +42587,8 @@ a.u-link.u-text-hover-grey-90:hover {
 
   .u-header .u-menu-1 {
     width: auto;
-    margin-top: -63px;
+    margin-top: -54px;
+    margin-left: 63px;
   }
 
   .u-header .u-nav-1 {
