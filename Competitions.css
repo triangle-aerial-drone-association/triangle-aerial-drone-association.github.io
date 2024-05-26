@@ -26,8 +26,9 @@
 
 .u-section-2 .u-image-1 {
   min-height: 452px;
-  background-image: url("images/competition_image_2.jpg");
+  background-image: url("images/20240517_155917.jpeg");
   background-position: 50% 50%;
+  background-size: auto 125%;
 }
 
 .u-section-2 .u-container-layout-1 {
@@ -78,7 +79,8 @@
 
 .u-section-2 .u-image-3 {
   min-height: 310px;
-  background-image: url("images/drone_competition.jpg");
+  background-image: url("images/competition_image_5-min.jpeg");
+  background-position: 50% 50%;
 }
 
 .u-section-2 .u-container-layout-5 {
@@ -118,7 +120,6 @@
 
   .u-section-2 .u-image-3 {
     min-height: 256px;
-    background-position: 50% 50%;
   }
 
   .u-section-2 .u-image-4 {
