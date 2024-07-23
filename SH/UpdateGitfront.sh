@@ -35,3 +35,4 @@ cd "$REPO_PATH" || exit
 git add .
 git commit -m "Updated GitFront Page on $(date)"
 git push origin main
+git push remote origin main
