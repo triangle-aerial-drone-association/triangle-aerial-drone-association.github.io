@@ -1,4 +1,3 @@
-
 SCRIPT_DIR=$(dirname "$0")
 
 REPO_PATH="$SCRIPT_DIR/.."
@@ -12,7 +11,7 @@ rm -f "$REPO_PATH"/*.txt
 
 wget --recursive --level=5 --no-clobber --page-requisites --adjust-extension --span-hosts --convert-links --restrict-file-names=windows --domains=gitfront.io --no-parent -np -nH --cut-dirs=4 -P . "$DOWNLOAD_URL"
 
-rm -f robots.txt
+# rm -f robots.txt
 
 if [ -e index.html ]; then
     mv index.html TADAResources.html

@@ -14,7 +14,7 @@ del /q %REPO_PATH%\*.txt
 
 wget --recursive --level=5 --no-clobber --page-requisites --adjust-extension --span-hosts --convert-links --restrict-file-names=windows --domains gitfront.io --no-parent -np -nH --cut-dirs=4 -P . %DOWNLOAD_URL%
 
-del robots.txt
+@REM del robots.txt
 
 if exist index.html rename index.html TADAResources.html
 if exist style.css rename style.css TADAResources.css
