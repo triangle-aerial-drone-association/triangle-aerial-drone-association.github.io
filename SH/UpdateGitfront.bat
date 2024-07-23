@@ -16,9 +16,10 @@ wget --recursive --level=5 --no-clobber --page-requisites --adjust-extension --s
 
 del robots.txt
 
-if exist index.html rename index.html subsite.html
+if exist index.html rename index.html TADAResources.html
+if exist style.css rename style.css TADAResources.css
 
-powershell -Command "((Get-Content -path %DOWNLOAD_PATH%\subsite.html -Raw) -replace '<div class=\"footer\">[\s\S]*?<\/div>', '') | Set-Content -Path %DOWNLOAD_PATH%\subsite.html"
+powershell -Command "(Get-ChildItem -Path %DOWNLOAD_PATH% -Filter *.html -Recurse | ForEach-Object {((Get-Content -Path $_.FullName -Raw) -replace '<div class=\"footer\">[\s\S]*?<\/div>', '' -replace 'style.css', 'TADAResources.css') | Set-Content -Path $_.FullName})"
 
 xcopy /s /e /y * %REPO_PATH%\
 

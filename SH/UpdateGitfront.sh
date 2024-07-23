@@ -1,3 +1,4 @@
+
 SCRIPT_DIR=$(dirname "$0")
 
 REPO_PATH="$SCRIPT_DIR/.."
@@ -17,7 +18,11 @@ if [ -e index.html ]; then
     mv index.html TADAResources.html
 fi
 
-# Use sed to remove the footer section from HTML files
+if [ -e style.css ]; then
+    mv style.css TADAResources.css
+    find . -type f -name "*.html" -exec sed -i '' 's/style.css/TADAResources.css/g' {} +
+fi
+
 sed -i '' '/<div class="footer">/,/<\/div>/d' TADAResources.html
 
 cp -R . "$REPO_PATH/"
