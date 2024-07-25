@@ -1,0 +1,1 @@
+The scripts in these directories will automatically update the TADAResources pages when run and will auto commit the changes to Github

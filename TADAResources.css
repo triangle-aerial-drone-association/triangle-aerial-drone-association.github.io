@@ -1,0 +1,349 @@
+/* Background */ .highlight-bg { background-color: #ffffff }
+/* PreWrapper */ .highlight-chroma { background-color: #ffffff; }
+/* Error */ .highlight-chroma .highlight-err { background-color: #a848a8 }
+/* LineTableTD */ .highlight-chroma .highlight-lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+/* LineTable */ .highlight-chroma .highlight-lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; }
+/* LineHighlight */ .highlight-chroma .highlight-hl { background-color: #e5e5e5 }
+/* LineNumbersTable */ .highlight-chroma .highlight-lnt { white-space: pre; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* LineNumbers */ .highlight-chroma .highlight-ln { white-space: pre; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+/* Line */ .highlight-chroma .highlight-line { display: flex; }
+/* Keyword */ .highlight-chroma .highlight-k { color: #2838b0 }
+/* KeywordConstant */ .highlight-chroma .highlight-kc { color: #444444; font-style: italic }
+/* KeywordDeclaration */ .highlight-chroma .highlight-kd { color: #2838b0; font-style: italic }
+/* KeywordNamespace */ .highlight-chroma .highlight-kn { color: #2838b0 }
+/* KeywordPseudo */ .highlight-chroma .highlight-kp { color: #2838b0 }
+/* KeywordReserved */ .highlight-chroma .highlight-kr { color: #2838b0 }
+/* KeywordType */ .highlight-chroma .highlight-kt { color: #2838b0; font-style: italic }
+/* NameAttribute */ .highlight-chroma .highlight-na { color: #388038 }
+/* NameBuiltin */ .highlight-chroma .highlight-nb { color: #388038 }
+/* NameBuiltinPseudo */ .highlight-chroma .highlight-bp { font-style: italic }
+/* NameClass */ .highlight-chroma .highlight-nc { color: #287088 }
+/* NameConstant */ .highlight-chroma .highlight-no { color: #b85820 }
+/* NameDecorator */ .highlight-chroma .highlight-nd { color: #287088 }
+/* NameEntity */ .highlight-chroma .highlight-ni { color: #709030 }
+/* NameException */ .highlight-chroma .highlight-ne { color: #908828 }
+/* NameFunction */ .highlight-chroma .highlight-nf { color: #785840 }
+/* NameFunctionMagic */ .highlight-chroma .highlight-fm { color: #b85820 }
+/* NameLabel */ .highlight-chroma .highlight-nl { color: #289870 }
+/* NameNamespace */ .highlight-chroma .highlight-nn { color: #289870 }
+/* NameTag */ .highlight-chroma .highlight-nt { color: #2838b0 }
+/* NameVariable */ .highlight-chroma .highlight-nv { color: #b04040 }
+/* NameVariableGlobal */ .highlight-chroma .highlight-vg { color: #908828 }
+/* NameVariableMagic */ .highlight-chroma .highlight-vm { color: #b85820 }
+/* LiteralString */ .highlight-chroma .highlight-s { color: #b83838 }
+/* LiteralStringAffix */ .highlight-chroma .highlight-sa { color: #444444 }
+/* LiteralStringBacktick */ .highlight-chroma .highlight-sb { color: #b83838 }
+/* LiteralStringChar */ .highlight-chroma .highlight-sc { color: #a848a8 }
+/* LiteralStringDelimiter */ .highlight-chroma .highlight-dl { color: #b85820 }
+/* LiteralStringDoc */ .highlight-chroma .highlight-sd { color: #b85820; font-style: italic }
+/* LiteralStringDouble */ .highlight-chroma .highlight-s2 { color: #b83838 }
+/* LiteralStringEscape */ .highlight-chroma .highlight-se { color: #709030 }
+/* LiteralStringHeredoc */ .highlight-chroma .highlight-sh { color: #b83838 }
+/* LiteralStringInterpol */ .highlight-chroma .highlight-si { color: #b83838; text-decoration: underline }
+/* LiteralStringOther */ .highlight-chroma .highlight-sx { color: #a848a8 }
+/* LiteralStringRegex */ .highlight-chroma .highlight-sr { color: #a848a8 }
+/* LiteralStringSingle */ .highlight-chroma .highlight-s1 { color: #b83838 }
+/* LiteralStringSymbol */ .highlight-chroma .highlight-ss { color: #b83838 }
+/* LiteralNumber */ .highlight-chroma .highlight-m { color: #444444 }
+/* LiteralNumberBin */ .highlight-chroma .highlight-mb { color: #444444 }
+/* LiteralNumberFloat */ .highlight-chroma .highlight-mf { color: #444444 }
+/* LiteralNumberHex */ .highlight-chroma .highlight-mh { color: #444444 }
+/* LiteralNumberInteger */ .highlight-chroma .highlight-mi { color: #444444 }
+/* LiteralNumberIntegerLong */ .highlight-chroma .highlight-il { color: #444444 }
+/* LiteralNumberOct */ .highlight-chroma .highlight-mo { color: #444444 }
+/* Operator */ .highlight-chroma .highlight-o { color: #666666 }
+/* OperatorWord */ .highlight-chroma .highlight-ow { color: #a848a8 }
+/* Punctuation */ .highlight-chroma .highlight-p { color: #888888 }
+/* Comment */ .highlight-chroma .highlight-c { color: #888888; font-style: italic }
+/* CommentHashbang */ .highlight-chroma .highlight-ch { color: #287088; font-style: italic }
+/* CommentMultiline */ .highlight-chroma .highlight-cm { color: #888888; font-style: italic }
+/* CommentSingle */ .highlight-chroma .highlight-c1 { color: #888888; font-style: italic }
+/* CommentSpecial */ .highlight-chroma .highlight-cs { color: #888888; font-style: italic }
+/* CommentPreproc */ .highlight-chroma .highlight-cp { color: #289870 }
+/* CommentPreprocFile */ .highlight-chroma .highlight-cpf { color: #289870 }
+/* GenericDeleted */ .highlight-chroma .highlight-gd { color: #c02828 }
+/* GenericEmph */ .highlight-chroma .highlight-ge { font-style: italic }
+/* GenericError */ .highlight-chroma .highlight-gr { color: #c02828 }
+/* GenericHeading */ .highlight-chroma .highlight-gh { color: #666666 }
+/* GenericInserted */ .highlight-chroma .highlight-gi { color: #388038 }
+/* GenericOutput */ .highlight-chroma .highlight-go { color: #666666 }
+/* GenericPrompt */ .highlight-chroma .highlight-gp { color: #444444 }
+/* GenericStrong */ .highlight-chroma .highlight-gs { font-weight: bold }
+/* GenericSubheading */ .highlight-chroma .highlight-gu { color: #444444 }
+/* GenericTraceback */ .highlight-chroma .highlight-gt { color: #2838b0 }
+/* GenericUnderline */ .highlight-chroma .highlight-gl { text-decoration: underline }
+/* TextWhitespace */ .highlight-chroma .highlight-w { color: #a89028 }
+:root {
+    --text-color: #333;
+    --link-color: #16b;
+    --background-color: #fff;
+
+    --border-color-hard: #e0e0e0;
+    --border-color-soft: #f0f0f0;
+
+    --markdown-line-color: #eee;
+    --markdown-code-color: #f2f2f2;
+
+    --header-color: #444;
+    --header-background-color: #fafafa;
+
+    --button-color: #000;
+    --button-background-color: #eee;
+    --button-border-color: #ddd;
+}
+
+html, body {
+    min-height: 100%;
+}
+
+body {
+    overflow-y: scroll;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: var(--text-color);
+}
+
+input {
+    color: var(--text-color);
+    background: var(--background-color);
+    border: 1px solid var(--border-color-hard);
+    border-radius: 4px;
+}
+
+.container {
+    position: relative;
+    min-height: 100%;
+}
+
+.container > *:first-child {
+    padding-top: 2rem;
+    margin-top: 0;
+}
+
+.container > .space {
+    padding-bottom: 3rem;
+}
+
+.tree {
+    font-size: .9rem;
+    border: 1px solid var(--border-color-hard);
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tree li {
+    padding: 1em;
+}
+
+.tree .entry {
+    position: relative;
+    display: flex;
+    border-top: 1px solid var(--border-color-soft);
+}
+
+.tree .entry a {
+    color: var(--text-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tree .entry a::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+.tree .entry a {
+    text-decoration: none;
+}
+.tree .entry a:hover {
+    text-decoration: underline;
+    text-underline-position: under;
+}
+
+article.readme, .tree, .blob-view, .location {
+    border-radius: 4px;
+    margin: 2em auto;
+    max-width: 970px;
+}
+
+article.readme, .blob-view {
+    border: 1px solid var(--border-color-hard);
+}
+
+.location {
+    color: #aaa;
+}
+.location > * {
+    margin: 0 .1em;
+    color: var(--text-color);
+    word-break: break-all;
+}
+
+.location a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+.location a:hover {
+    text-decoration: underline;
+}
+
+.location *:nth-child(1) {
+    font-weight: bold;
+    filter: brightness(80%);
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    grid-gap: 4px;
+    align-items: center;
+    padding: 1em;
+    font-size: .9rem;
+    background-color: var(--header-background-color);
+    color: var(--header-color);
+    overflow-x: auto;
+}
+
+.header-basename {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.last {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 4px;
+    margin: -1em auto;
+}
+
+.btn {
+    display: inline-block;
+    font-size: 10pt;
+    background-color: var(--button-background-color);
+    border: 1px solid var(--button-border-color);
+    text-decoration: none;
+    color: var(--button-color);
+    cursor: pointer;
+    padding: .5em 1.5em;
+    border-radius: 4px;
+    min-width: 3em;
+    text-align: center;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.icon {
+    margin: auto 1em auto 0;
+    width: 16px;
+    height: 16px;
+}
+
+.content {
+    padding: 1em;
+    border-top: 1px solid var(--border-color-soft);
+}
+
+.content .content-img {
+    display: flex;
+    justify-content: center;
+}
+.content .content-img img {
+    max-width: 100%;
+}
+
+.content pre {
+    padding: 0 2em;
+    overflow-x: auto;
+}
+
+.markdown {
+    font-size: .9rem;
+    padding: 2em;
+}
+.markdown h1 {
+    font-size: 1.5rem;
+    margin: 1em 0;
+    padding-bottom: .3em;
+    border-bottom: 1px solid var(--markdown-line-color);
+}
+.markdown h2 {
+    font-size: 1.3rem;
+    margin: 1em 0;
+    padding-bottom: .3em;
+    border-bottom: 1px solid var(--markdown-line-color);
+}
+.markdown p {
+    line-height: 1.5;
+}
+.markdown img {
+    vertical-align: middle;
+    max-width: 100%;
+}
+.markdown a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+.markdown a:hover {
+    text-decoration: underline;
+}
+
+.markdown pre {
+    background-color: var(--background-color);
+    font-size: .8rem;
+    padding: .8em 1em;
+    border: 1px solid var(--markdown-line-color);
+    border-radius: 4px;
+}
+.markdown pre code {
+    background-color: inherit;
+    padding: 0;
+}
+.markdown code {
+    background-color: var(--markdown-code-color);
+    border-radius: 4px;
+    padding: 2px 4px;
+}
+.markdown p code {
+    font-size: .88em;
+}
+.markdown table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+.markdown td, .markdown th {
+    padding: .5em 1em;
+    border: 1px solid var(--markdown-line-color);
+}
+
+.highlight-chroma {
+    background-color: var(--background-color);
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 3rem;
+
+    margin: auto;
+    text-align: center;
+    font-size: .8rem;
+}
+
+.footer a {
+    color: var(--link-color);
+}
