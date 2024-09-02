@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta name="robots" content="noindex">
+        <style>html {background-color: #fff}</style>
+        <link rel="stylesheet" href="../../TADAResources.css">
+        <title>Movement/Z-Axis.py · TADA-Guide-Scripts · GitFront</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="location">
+                <a href="../../index.html">TADA-Guide-Scripts</a> /
+                <a href="../../tree/Movement/index.html">Movement</a> /
+                <span>Z-Axis.py</span>
+            </div>
+
+            <div class="blob-view">
+                <div class="header">
+                    <div class="header-basename">Z-Axis.py</div>
+                    <div class="last">
+                        <a class="btn" href="../../raw/Movement/Z-Axis.py">Raw</a>
+                    </div>
+                </div>
+                <div class="content ">
+                    <pre tabindex="0" class="highlight-chroma"><code><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">from</span> <span class="highlight-nn">codrone_edu</span><span class="highlight-nn">.</span><span class="highlight-nn">drone</span> <span class="highlight-kn">import</span> <span class="highlight-o">*</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">import</span> <span class="highlight-nn">time</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span> <span class="highlight-o">=</span> <span class="highlight-n">Drone</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-k">def</span> <span class="highlight-nf">fly_2_z</span><span class="highlight-p">(</span><span class="highlight-n">height</span><span class="highlight-p">,</span> <span class="highlight-n">power</span><span class="highlight-p">)</span><span class="highlight-p">:</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-n">HT</span> <span class="highlight-o">=</span> <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">get_pos_z</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-nb">print</span><span class="highlight-p">(</span><span class="highlight-sa"></span><span class="highlight-s1">&#39;</span><span class="highlight-s1">  </span><span class="highlight-s1">&#39;</span><span class="highlight-p">,</span> <span class="highlight-n">HT</span><span class="highlight-p">,</span> <span class="highlight-sa"></span><span class="highlight-s1">&#39;</span><span class="highlight-s1">to</span><span class="highlight-s1">&#39;</span><span class="highlight-p">,</span> <span class="highlight-n">height</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-k">if</span> <span class="highlight-n">HT</span> <span class="highlight-o">&lt;</span> <span class="highlight-n">height</span><span class="highlight-p">:</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">set_throttle</span><span class="highlight-p">(</span><span class="highlight-n">power</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-k">while</span> <span class="highlight-n">HT</span> <span class="highlight-o">&lt;</span> <span class="highlight-n">height</span><span class="highlight-p">:</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">            <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">move</span><span class="highlight-p">(</span><span class="highlight-mf">.075</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">            <span class="highlight-nb">print</span><span class="highlight-p">(</span><span class="highlight-sa"></span><span class="highlight-s1">&#39;</span><span class="highlight-s1">up</span><span class="highlight-s1">&#39;</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">            <span class="highlight-nb">print</span><span class="highlight-p">(</span><span class="highlight-nb">str</span><span class="highlight-p">(</span><span class="highlight-n">HT</span><span class="highlight-p">)</span><span class="highlight-o">+</span><span class="highlight-sa"></span><span class="highlight-s2">&#34;</span><span class="highlight-s2">target height</span><span class="highlight-s2">&#34;</span><span class="highlight-o">+</span><span class="highlight-nb">str</span><span class="highlight-p">(</span><span class="highlight-n">height</span><span class="highlight-p">)</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">            <span class="highlight-n">HT</span> <span class="highlight-o">=</span> <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">get_pos_z</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-k">else</span><span class="highlight-p">:</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">set_throttle</span><span class="highlight-p">(</span><span class="highlight-o">-</span><span class="highlight-mi">1</span><span class="highlight-o">*</span><span class="highlight-n">power</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-k">while</span> <span class="highlight-n">HT</span> <span class="highlight-o">&gt;</span> <span class="highlight-n">height</span><span class="highlight-p">:</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">            <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">move</span><span class="highlight-p">(</span><span class="highlight-mf">.075</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">            <span class="highlight-nb">print</span><span class="highlight-p">(</span><span class="highlight-sa"></span><span class="highlight-s2">&#34;</span><span class="highlight-s2">Down</span><span class="highlight-s2">&#34;</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">            <span class="highlight-nb">print</span><span class="highlight-p">(</span><span class="highlight-nb">str</span><span class="highlight-p">(</span><span class="highlight-n">HT</span><span class="highlight-p">)</span> <span class="highlight-o">+</span> <span class="highlight-sa"></span><span class="highlight-s2">&#34;</span><span class="highlight-s2">target height</span><span class="highlight-s2">&#34;</span> <span class="highlight-o">+</span> <span class="highlight-nb">str</span><span class="highlight-p">(</span><span class="highlight-n">height</span><span class="highlight-p">)</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">            <span class="highlight-n">HT</span> <span class="highlight-o">=</span> <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">get_pos_z</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-nb">print</span><span class="highlight-p">(</span><span class="highlight-sa"></span><span class="highlight-s2">&#34;</span><span class="highlight-s2">  Reached Target Height &amp; hover at </span><span class="highlight-s2">&#34;</span><span class="highlight-p">,</span><span class="highlight-n">HT</span><span class="highlight-p">)</span>
+</span></span></code></pre>
+                </div>
+            </div>
+
+            <div class="space"></div>
+            
+        </div>
+    </body>
+</html>
+

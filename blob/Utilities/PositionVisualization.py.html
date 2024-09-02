@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta name="robots" content="noindex">
+        <style>html {background-color: #fff}</style>
+        <link rel="stylesheet" href="../../TADAResources.css">
+        <title>Utilities/PositionVisualization.py · TADA-Guide-Scripts · GitFront</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="location">
+                <a href="../../index.html">TADA-Guide-Scripts</a> /
+                <a href="../../tree/Utilities/index.html">Utilities</a> /
+                <span>PositionVisualization.py</span>
+            </div>
+
+            <div class="blob-view">
+                <div class="header">
+                    <div class="header-basename">PositionVisualization.py</div>
+                    <div class="last">
+                        <a class="btn" href="../../raw/Utilities/PositionVisualization.py">Raw</a>
+                    </div>
+                </div>
+                <div class="content ">
+                    <pre tabindex="0" class="highlight-chroma"><code><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># This script tracks and visualizes the drone&#39;s position over time using 2D and 3D plots while flying</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">import</span> <span class="highlight-nn">math</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">from</span> <span class="highlight-nn">time</span> <span class="highlight-kn">import</span> <span class="highlight-n">sleep</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">import</span> <span class="highlight-nn">time</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">import</span> <span class="highlight-nn">threading</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">from</span> <span class="highlight-nn">codrone_edu</span><span class="highlight-nn">.</span><span class="highlight-nn">drone</span> <span class="highlight-kn">import</span> <span class="highlight-o">*</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">from</span> <span class="highlight-nn">codrone_edu</span><span class="highlight-nn">.</span><span class="highlight-nn">protocol</span> <span class="highlight-kn">import</span> <span class="highlight-o">*</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># This is an external library for plotting, use &#34;pip install matplotlib&#34; in your terminal to install it</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">import</span> <span class="highlight-nn">matplotlib</span><span class="highlight-nn">.</span><span class="highlight-nn">pyplot</span> <span class="highlight-k">as</span> <span class="highlight-nn">plt</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Initialize trim values</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">roll_trim</span> <span class="highlight-o">=</span> <span class="highlight-mi">0</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">pitch_trim</span> <span class="highlight-o">=</span> <span class="highlight-mi">0</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Create a Drone object</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span> <span class="highlight-o">=</span> <span class="highlight-n">Drone</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">open</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">pair</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">reset_sensor</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">set_trim</span><span class="highlight-p">(</span><span class="highlight-n">roll_trim</span><span class="highlight-p">,</span> <span class="highlight-n">pitch_trim</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Allow 3 seconds for the trim setting to take effect</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">time</span><span class="highlight-o">.</span><span class="highlight-n">sleep</span><span class="highlight-p">(</span><span class="highlight-mi">3</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Lists to use for graphing data</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">t_list</span> <span class="highlight-o">=</span> <span class="highlight-p">[</span><span class="highlight-p">]</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">x_list</span> <span class="highlight-o">=</span> <span class="highlight-p">[</span><span class="highlight-p">]</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">y_list</span> <span class="highlight-o">=</span> <span class="highlight-p">[</span><span class="highlight-p">]</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Determining the initial time value</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">t_init</span> <span class="highlight-o">=</span> <span class="highlight-n">time</span><span class="highlight-o">.</span><span class="highlight-n">time</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">t_now</span> <span class="highlight-o">=</span> <span class="highlight-mi">0</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">capture_data_flag</span> <span class="highlight-o">=</span> <span class="highlight-kc">True</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Function to capture data</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-k">def</span> <span class="highlight-nf">capture_data</span><span class="highlight-p">(</span><span class="highlight-p">)</span><span class="highlight-p">:</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-k">global</span> <span class="highlight-n">t_now</span><span class="highlight-p">,</span> <span class="highlight-n">capture_data_flag</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-k">while</span> <span class="highlight-n">capture_data_flag</span><span class="highlight-p">:</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">t_now</span> <span class="highlight-o">=</span> <span class="highlight-n">time</span><span class="highlight-o">.</span><span class="highlight-n">time</span><span class="highlight-p">(</span><span class="highlight-p">)</span> <span class="highlight-o">-</span> <span class="highlight-n">t_init</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">x</span> <span class="highlight-o">=</span> <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">get_pos_x</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">y</span> <span class="highlight-o">=</span> <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">get_pos_y</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-nb">print</span><span class="highlight-p">(</span><span class="highlight-n">x</span><span class="highlight-p">,</span> <span class="highlight-sa"></span><span class="highlight-s2">&#34;</span><span class="highlight-s2">,</span><span class="highlight-s2">&#34;</span><span class="highlight-p">,</span> <span class="highlight-n">y</span><span class="highlight-p">,</span> <span class="highlight-sa"></span><span class="highlight-s2">&#34;</span><span class="highlight-s2">,</span><span class="highlight-s2">&#34;</span><span class="highlight-p">,</span> <span class="highlight-n">t_now</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">x_list</span><span class="highlight-o">.</span><span class="highlight-n">append</span><span class="highlight-p">(</span><span class="highlight-n">x</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">y_list</span><span class="highlight-o">.</span><span class="highlight-n">append</span><span class="highlight-p">(</span><span class="highlight-n">y</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">t_list</span><span class="highlight-o">.</span><span class="highlight-n">append</span><span class="highlight-p">(</span><span class="highlight-n">t_now</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">time</span><span class="highlight-o">.</span><span class="highlight-n">sleep</span><span class="highlight-p">(</span><span class="highlight-mf">0.01</span><span class="highlight-p">)</span>  
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">takeoff</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Starts data capture parallel to drone movement</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">data_capture_thread</span> <span class="highlight-o">=</span> <span class="highlight-n">threading</span><span class="highlight-o">.</span><span class="highlight-n">Thread</span><span class="highlight-p">(</span><span class="highlight-n">target</span><span class="highlight-o">=</span><span class="highlight-n">capture_data</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">data_capture_thread</span><span class="highlight-o">.</span><span class="highlight-n">start</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># PUT YOUR COMMANDS HERE BELOW THIS LINE</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">send_absolute_position</span><span class="highlight-p">(</span><span class="highlight-mf">0.4</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mf">0.7</span><span class="highlight-p">,</span> <span class="highlight-mf">0.5</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">180</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># DO NOT PUT CODE BEYOND THIS LINE</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Land the drone and stop data capture</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-nb">print</span><span class="highlight-p">(</span><span class="highlight-sa"></span><span class="highlight-s2">&#34;</span><span class="highlight-s2">landing</span><span class="highlight-s2">&#34;</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">land</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">emergency_stop</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">capture_data_flag</span> <span class="highlight-o">=</span> <span class="highlight-kc">False</span>  <span class="highlight-c1"># Stop the data capture</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">data_capture_thread</span><span class="highlight-o">.</span><span class="highlight-n">join</span><span class="highlight-p">(</span><span class="highlight-p">)</span>  <span class="highlight-c1"># Synthesizing Data</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Setting up the 2D graph</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">plt</span><span class="highlight-o">.</span><span class="highlight-n">xlim</span><span class="highlight-p">(</span><span class="highlight-o">-</span><span class="highlight-mi">50</span><span class="highlight-p">,</span> <span class="highlight-mi">50</span><span class="highlight-p">)</span>  <span class="highlight-c1"># Set x-axis limits</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">plt</span><span class="highlight-o">.</span><span class="highlight-n">ylim</span><span class="highlight-p">(</span><span class="highlight-o">-</span><span class="highlight-mi">50</span><span class="highlight-p">,</span> <span class="highlight-mi">50</span><span class="highlight-p">)</span>  <span class="highlight-c1"># Set y-axis limits</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">plt</span><span class="highlight-o">.</span><span class="highlight-n">plot</span><span class="highlight-p">(</span><span class="highlight-n">x_list</span><span class="highlight-p">,</span> <span class="highlight-n">y_list</span><span class="highlight-p">,</span> <span class="highlight-sa"></span><span class="highlight-s1">&#39;</span><span class="highlight-s1">go</span><span class="highlight-s1">&#39;</span><span class="highlight-p">)</span>  <span class="highlight-c1"># Plot x and y data points</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">plt</span><span class="highlight-o">.</span><span class="highlight-n">ylabel</span><span class="highlight-p">(</span><span class="highlight-sa"></span><span class="highlight-s1">&#39;</span><span class="highlight-s1">x (cm)</span><span class="highlight-s1">&#39;</span><span class="highlight-p">)</span>  <span class="highlight-c1"># Label for y-axis</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">plt</span><span class="highlight-o">.</span><span class="highlight-n">xlabel</span><span class="highlight-p">(</span><span class="highlight-sa"></span><span class="highlight-s1">&#39;</span><span class="highlight-s1">y (cm)</span><span class="highlight-s1">&#39;</span><span class="highlight-p">)</span>  <span class="highlight-c1"># Label for x-axis</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">plt</span><span class="highlight-o">.</span><span class="highlight-n">show</span><span class="highlight-p">(</span><span class="highlight-p">)</span>  <span class="highlight-c1"># Display the 2D plot</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Setting up the 3D graph</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">fig</span> <span class="highlight-o">=</span> <span class="highlight-n">plt</span><span class="highlight-o">.</span><span class="highlight-n">figure</span><span class="highlight-p">(</span><span class="highlight-p">)</span>  
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">axis</span> <span class="highlight-o">=</span> <span class="highlight-n">plt</span><span class="highlight-o">.</span><span class="highlight-n">axes</span><span class="highlight-p">(</span><span class="highlight-n">projection</span><span class="highlight-o">=</span><span class="highlight-sa"></span><span class="highlight-s1">&#39;</span><span class="highlight-s1">3d</span><span class="highlight-s1">&#39;</span><span class="highlight-p">)</span>  
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">plt</span><span class="highlight-o">.</span><span class="highlight-n">xlim</span><span class="highlight-p">(</span><span class="highlight-o">-</span><span class="highlight-mi">50</span><span class="highlight-p">,</span> <span class="highlight-mi">50</span><span class="highlight-p">)</span>  <span class="highlight-c1"># Set x-axis limits for the 3D plot</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">plt</span><span class="highlight-o">.</span><span class="highlight-n">ylim</span><span class="highlight-p">(</span><span class="highlight-o">-</span><span class="highlight-mi">50</span><span class="highlight-p">,</span> <span class="highlight-mi">50</span><span class="highlight-p">)</span>  <span class="highlight-c1"># Set y-axis limits for the 3D plot</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Scatter plot for 3D data, coloring points based on their t value</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">axis</span><span class="highlight-o">.</span><span class="highlight-n">scatter3D</span><span class="highlight-p">(</span><span class="highlight-n">x_list</span><span class="highlight-p">,</span> <span class="highlight-n">y_list</span><span class="highlight-p">,</span> <span class="highlight-n">t_list</span><span class="highlight-p">,</span> <span class="highlight-n">c</span><span class="highlight-o">=</span><span class="highlight-n">t_list</span><span class="highlight-p">,</span> <span class="highlight-n">cmap</span><span class="highlight-o">=</span><span class="highlight-sa"></span><span class="highlight-s1">&#39;</span><span class="highlight-s1">viridis</span><span class="highlight-s1">&#39;</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">plt</span><span class="highlight-o">.</span><span class="highlight-n">show</span><span class="highlight-p">(</span><span class="highlight-p">)</span>  <span class="highlight-c1"># Display the 3D plot</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">time</span><span class="highlight-o">.</span><span class="highlight-n">sleep</span><span class="highlight-p">(</span><span class="highlight-mi">1</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">close</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span></code></pre>
+                </div>
+            </div>
+
+            <div class="space"></div>
+            
+        </div>
+    </body>
+</html>
+

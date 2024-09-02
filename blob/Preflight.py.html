@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta name="robots" content="noindex">
+        <style>html {background-color: #fff}</style>
+        <link rel="stylesheet" href="../TADAResources.css">
+        <title>Preflight.py · TADA-Guide-Scripts · GitFront</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="location">
+                <a href="../index.html">TADA-Guide-Scripts</a> /
+                <span>Preflight.py</span>
+            </div>
+
+            <div class="blob-view">
+                <div class="header">
+                    <div class="header-basename">Preflight.py</div>
+                    <div class="last">
+                        <a class="btn" href="../raw/Preflight.py">Raw</a>
+                    </div>
+                </div>
+                <div class="content ">
+                    <pre tabindex="0" class="highlight-chroma"><code><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">from</span> <span class="highlight-nn">codrone_edu</span><span class="highlight-nn">.</span><span class="highlight-nn">drone</span> <span class="highlight-kn">import</span> <span class="highlight-o">*</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">import</span> <span class="highlight-nn">time</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Trim Values</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">roll_trim</span> <span class="highlight-o">=</span> <span class="highlight-mi">0</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">pitch_trim</span> <span class="highlight-o">=</span> <span class="highlight-mi">0</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span> <span class="highlight-o">=</span> <span class="highlight-n">Drone</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-c1"># Pre-flight preparation function</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-k">def</span> <span class="highlight-nf">pre_flight_preparation</span><span class="highlight-p">(</span><span class="highlight-n">roll_trim</span><span class="highlight-p">,</span> <span class="highlight-n">pitch_trim</span><span class="highlight-p">)</span><span class="highlight-p">:</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-nb">print</span><span class="highlight-p">(</span><span class="highlight-sa"></span><span class="highlight-s1">&#39;</span><span class="highlight-s1">Pre Flight Preparation...</span><span class="highlight-s1">&#39;</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">reset_sensor</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">reset_move</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">set_trim</span><span class="highlight-p">(</span><span class="highlight-n">roll_trim</span><span class="highlight-p">,</span> <span class="highlight-n">pitch_trim</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">set_initial_pressure</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-n">time</span><span class="highlight-o">.</span><span class="highlight-n">sleep</span><span class="highlight-p">(</span><span class="highlight-mi">3</span><span class="highlight-p">)</span> <span class="highlight-c1"># Give 3 sec for the above action to finish</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-n">battery_level</span> <span class="highlight-o">=</span> <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">get_battery</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-k">if</span> <span class="highlight-n">battery_level</span> <span class="highlight-o">&lt;</span> <span class="highlight-mi">90</span><span class="highlight-p">:</span> 
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-nb">print</span><span class="highlight-p">(</span><span class="highlight-sa"></span><span class="highlight-s1">&#39;</span><span class="highlight-s1">Need a freshly charged battery</span><span class="highlight-s1">&#39;</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">exit</span><span class="highlight-p">(</span><span class="highlight-mi">10</span><span class="highlight-p">)</span> <span class="highlight-c1"># Closes out the program with an error code</span>
+</span></span></code></pre>
+                </div>
+            </div>
+
+            <div class="space"></div>
+            
+        </div>
+    </body>
+</html>
+

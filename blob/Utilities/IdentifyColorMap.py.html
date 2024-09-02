@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta name="robots" content="noindex">
+        <style>html {background-color: #fff}</style>
+        <link rel="stylesheet" href="../../TADAResources.css">
+        <title>Utilities/IdentifyColorMap.py · TADA-Guide-Scripts · GitFront</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="location">
+                <a href="../../index.html">TADA-Guide-Scripts</a> /
+                <a href="../../tree/Utilities/index.html">Utilities</a> /
+                <span>IdentifyColorMap.py</span>
+            </div>
+
+            <div class="blob-view">
+                <div class="header">
+                    <div class="header-basename">IdentifyColorMap.py</div>
+                    <div class="last">
+                        <a class="btn" href="../../raw/Utilities/IdentifyColorMap.py">Raw</a>
+                    </div>
+                </div>
+                <div class="content ">
+                    <pre tabindex="0" class="highlight-chroma"><code><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">from</span> <span class="highlight-nn">codrone_edu</span><span class="highlight-nn">.</span><span class="highlight-nn">drone</span> <span class="highlight-kn">import</span> <span class="highlight-o">*</span>
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-kn">import</span> <span class="highlight-nn">time</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-n">drone</span> <span class="highlight-o">=</span> <span class="highlight-n">Drone</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">
+</span></span><span class="highlight-line"><span class="highlight-cl"><span class="highlight-k">def</span> <span class="highlight-nf">identify_color_mat</span><span class="highlight-p">(</span><span class="highlight-p">)</span><span class="highlight-p">:</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-nb">print</span><span class="highlight-p">(</span><span class="highlight-sa"></span><span class="highlight-s1">&#39;</span><span class="highlight-s1">Identifying Color Mat...</span><span class="highlight-s1">&#39;</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-n">colorsensor</span> <span class="highlight-o">=</span> <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">get_color_data</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-k">while</span> <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">get_color_data</span><span class="highlight-p">(</span><span class="highlight-p">)</span> <span class="highlight-o">==</span> <span class="highlight-p">[</span><span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">]</span><span class="highlight-p">:</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">colorsensor</span> <span class="highlight-o">=</span> <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">get_color_data</span><span class="highlight-p">(</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-n">colors</span> <span class="highlight-o">=</span> <span class="highlight-p">{</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-sa"></span><span class="highlight-s2">&#34;</span><span class="highlight-s2">Red</span><span class="highlight-s2">&#34;</span><span class="highlight-p">:</span> <span class="highlight-p">(</span><span class="highlight-mi">255</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">255</span><span class="highlight-p">)</span><span class="highlight-p">,</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-sa"></span><span class="highlight-s2">&#34;</span><span class="highlight-s2">Green</span><span class="highlight-s2">&#34;</span><span class="highlight-p">:</span> <span class="highlight-p">(</span><span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">255</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">255</span><span class="highlight-p">)</span><span class="highlight-p">,</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-sa"></span><span class="highlight-s2">&#34;</span><span class="highlight-s2">Blue</span><span class="highlight-s2">&#34;</span><span class="highlight-p">:</span> <span class="highlight-p">(</span><span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">0</span><span class="highlight-p">,</span> <span class="highlight-mi">255</span><span class="highlight-p">,</span> <span class="highlight-mi">255</span><span class="highlight-p">)</span><span class="highlight-p">,</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-sa"></span><span class="highlight-s2">&#34;</span><span class="highlight-s2">Black</span><span class="highlight-s2">&#34;</span><span class="highlight-p">:</span> <span class="highlight-p">(</span><span class="highlight-mi">0</span><span class="highlight-p">,</span><span class="highlight-mi">0</span><span class="highlight-p">,</span><span class="highlight-mi">255</span><span class="highlight-p">,</span><span class="highlight-mi">255</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-p">}</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-k">for</span> <span class="highlight-n">i</span> <span class="highlight-ow">in</span> <span class="highlight-nb">range</span><span class="highlight-p">(</span><span class="highlight-mi">10</span><span class="highlight-p">)</span><span class="highlight-p">:</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">        <span class="highlight-n">drone</span><span class="highlight-o">.</span><span class="highlight-n">set_drone_LED</span><span class="highlight-p">(</span><span class="highlight-o">*</span><span class="highlight-n">colors</span><span class="highlight-p">[</span><span class="highlight-n">colorsensor</span><span class="highlight-p">[</span><span class="highlight-mi">9</span><span class="highlight-p">]</span><span class="highlight-o">.</span><span class="highlight-n">name</span><span class="highlight-p">]</span><span class="highlight-p">)</span>
+</span></span><span class="highlight-line"><span class="highlight-cl">    <span class="highlight-n">time</span><span class="highlight-o">.</span><span class="highlight-n">sleep</span><span class="highlight-p">(</span><span class="highlight-mf">0.5</span><span class="highlight-p">)</span></span></span></code></pre>
+                </div>
+            </div>
+
+            <div class="space"></div>
+            
+        </div>
+    </body>
+</html>
+

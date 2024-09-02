@@ -29,4 +29,7 @@ rd /s /q %DOWNLOAD_PATH%
 
 cd %REPO_PATH%
 
-pause
+@REM git add .
+@REM git commit -m "Updated GitFront Page on %date%"
+@REM git push origin main
+@REM git push remote origin main
