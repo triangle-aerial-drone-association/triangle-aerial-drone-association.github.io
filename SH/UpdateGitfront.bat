@@ -24,7 +24,7 @@ if exist style.css rename style.css TADAResources.css
 powershell -Command ^
     "(Get-ChildItem -Path %DOWNLOAD_PATH% -Filter *.html -Recurse | ForEach-Object {" ^
     "    ((Get-Content -Path $_.FullName -Raw) " ^
-    "        -replace '</head>', '<link rel=\"shortcut icon\" type=\"image/x-icon\" href=\"images/favicon.ico\">\n</head>' " ^
+    "        -replace '</head>', '<link rel=\"shortcut icon\" type=\"image/x-icon\" href=\"images/favicon.ico\"></head>' " ^
     "        -replace '<div class=\"footer\">[\s\S]*?<\/div>', '' " ^
     "        -replace 'style.css', 'TADAResources.css' " ^
     "        -replace 'TADA-Guide-Scripts · GitFront', 'TADA Resources' " ^
@@ -38,6 +38,6 @@ rd /s /q %DOWNLOAD_PATH%
 
 cd %REPO_PATH%
 git add .
-git commit -m "Updated GitFront Page on %date%"
+@REM git commit -m "Updated GitFront Page on %date%"
 @REM git push origin main
 @REM git push remote origin main
